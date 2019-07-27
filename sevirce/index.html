@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>service work</title>
+</head>
+<body>
+<div>
+    <img src="">
+    <div  id="serviceWorker"></div>
+    <div id="state"></div>
+    <div id="active"></div>
+</div>
+<script src="js/sw-demo.js"></script>
+<script type="text/javascript">
+    if('serviceWorker' in navigator) {// 判断浏览器是否支持 serviceWorker
+        document.getElementById('serviceWorker').innerText = '支持serviceWorker'
+        navigator.serviceWorker.register('./js/sw-demo.js', {
+            scope: './js/'
+        }).then((registration) => {
+            console.log('99', registration)
+            document.getElementById('state').innerHTML = '注册成功'
+            let serviceWorker
+            if(registration.active) {
+                serviceWorker = registration.active
+                document.getElementById('active').innerHTML = 'active阶段'
+            }
+
+        }).catch((err) => {
+            document.getElementById('state').innerHTML = '注册失败'
+        })
+    } else {
+        document.getElementById('serviceWorker').innerText = '不支持serviceWorker'
+    }
+</script>
+</body>
+</html>
